@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizio/questions.dart';
 
 class QuizScreen extends StatefulWidget {
   @override
@@ -7,17 +8,11 @@ class QuizScreen extends StatefulWidget {
 
 class _QuizScreenState extends State<QuizScreen> {
   List<Icon> scoreKeeper = [];
-  List<String> questions =[
-    'You can lead a cow down stairs but not up stairs',
-    'Approximatly on e quartere of human bones are in the feet',
-    'A slug\'s blood is green',
-    'Life is a bitch sometimes'
-  ];
 
-  List<bool> answers = [
-    false,
-    true,
-    true
+  List<Question> questionList = [
+    Question(question: 'You can lead a cow down stairs but not up stairs' , answer: false ),
+    Question(question: 'A slug\'s blood is green', answer: true),
+    Question(question: 'Life is a bitch sometimes', answer: true),
   ];
 
   int questionNumber  = 0;//variable to track the number of question
@@ -30,14 +25,14 @@ class _QuizScreenState extends State<QuizScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
+          children: <Widget>[                                                   //question text
             Expanded(
               flex: 5,
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Center(
                   child: Text(
-                    questions[questionNumber],
+                    questionList[questionNumber].questionText,
                     style: TextStyle(fontSize: 25.0, color: Colors.white),
                   ),
                 ),
@@ -48,7 +43,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 padding: const EdgeInsets.all(15.0),
                 child: FlatButton(
                   onPressed: () {
-                    bool correctAnswer = answers[questionNumber];
+                    bool correctAnswer = questionList[questionNumber].questionAnswer;//answers
                     if(correctAnswer == true){
                       print("user got the it right");
                     } else{
@@ -74,8 +69,8 @@ class _QuizScreenState extends State<QuizScreen> {
                 padding: const EdgeInsets.all(15.0),
                 child: FlatButton(
                   onPressed: () {
-                    bool currectAnswer = answers[questionNumber];
-                    if(currectAnswer ==false){
+                    bool correctAnswer = questionList[questionNumber].questionAnswer;//answer
+                    if(correctAnswer ==false){
                       print("User got this right");
                     }else{
                       print("User got this wrong");
